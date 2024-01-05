@@ -1,28 +1,27 @@
 import os
+
 import sys
 # Get the directory of the current script
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
 # Get the parent directory
 parent_dir = os.path.dirname(current_dir)
-
 # Add the parent directory to sys.path
 sys.path.append(parent_dir)
-from audioldm_eval.datasets.load_mel import load_npy_data, MelPairedDataset, WaveDataset
+from audio_eval.datasets.load_mel import load_npy_data, MelPairedDataset, WaveDataset
 import numpy as np
 import argparse
 
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from audioldm_eval.metrics.fad import FrechetAudioDistance
-from audioldm_eval import calculate_fid, calculate_isc, calculate_kid, calculate_kl
+from audio_eval.metrics.fad import FrechetAudioDistance
+from audio_eval import calculate_fid, calculate_isc, calculate_kid, calculate_kl
 from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
-from audioldm_eval.feature_extractors.panns import Cnn14
-from audioldm_eval.audio.tools import save_pickle, load_pickle, write_json, load_json
+from audio_eval.feature_extractors.panns import Cnn14
+from audio_eval.audio.tools import save_pickle, load_pickle, write_json, load_json
 from ssr_eval.metrics import AudioMetrics
-import audioldm_eval.audio as Audio
+import audio_eval.audio as Audio
 
 import time
 
@@ -392,7 +391,7 @@ class EvaluationHelper:
 if __name__ == "__main__":
     import argparse
 
-    from audioldm_eval import EvaluationHelper
+    from audio_eval import EvaluationHelper
     import torch
 
     parser = argparse.ArgumentParser()

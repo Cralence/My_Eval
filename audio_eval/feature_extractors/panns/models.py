@@ -5,7 +5,7 @@ from torchlibrosa.stft import Spectrogram, LogmelFilterBank
 from torchlibrosa.augmentation import SpecAugmentation
 import os
 
-from audioldm_eval.feature_extractors.panns.pytorch_utils import (
+from audio_eval.feature_extractors.panns.pytorch_utils import (
     do_mixup,
     interpolate,
     pad_framewise_output,
