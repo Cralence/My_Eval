@@ -2,9 +2,9 @@ import os
 import numpy as np
 import argparse
 
-from motion_eval.loader import AISTDataset
-from motion_eval.features.kinetic import extract_kinetic_features
-from motion_eval.features.manual_new import extract_manual_features
+from loader import AISTDataset
+from features.kinetic import extract_kinetic_features
+from features.manual_new import extract_manual_features
 from smplx import SMPL
 
 import torch
