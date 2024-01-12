@@ -164,9 +164,11 @@ def calc_and_save_feats(root):
         #joint3d = np.load(os.path.join(root, pkl), allow_pickle=True).item()['pred_position'][:1200,:]
         joint3d = np.load(os.path.join(root, pkl), allow_pickle=True)[:1200, :]
         # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
-        roott = joint3d[:1, :3]  # the root Tx72 (Tx(24x3))
+        #roott = joint3d[:1, :3]  # the root Tx72 (Tx(24x3))
+        roott = joint3d[:1, :1]  # (1, 1, 3)
         # print(roott)
-        # joint3d = joint3d - np.tile(roott, (1, 22))  # Calculate relative offset with respect to root
+        #joint3d = joint3d - np.tile(roott, (1, 22))  # Calculate relative offset with respect to root
+        joint3d = joint3d - roott
         # print('==============after fix root ============')
         # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
         # print('==============bla============')
@@ -180,6 +182,8 @@ if __name__ == '__main__':
 
     gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
     pred_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/music_motion_diffusion/demo_text2musicmotion/feature_22_3'
+    # gt_root = '../tempt_1'
+    # pred_root = '../tempt_2'
     print('Calculating and saving features')
     calc_and_save_feats(gt_root)
     calc_and_save_feats(pred_root)
@@ -188,3 +192,6 @@ if __name__ == '__main__':
     print(gt_root)
     print(pred_root)
     print(quantized_metrics(pred_root, gt_root))
+
+    # results without offsetting with mean
+    # {'fid_k': 171.13009336399293, 'fid_m': 116.723685752069, 'div_k': 16.73747821964466, 'div_m': 9.502102176706153, 'div_k_gt': 9.26079813432322, 'div_m_gt': 7.342270033142343}
