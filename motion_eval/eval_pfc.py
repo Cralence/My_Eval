@@ -21,6 +21,7 @@ def calc_physical_score(dir, fps):
     for pkl in tqdm(it):
         # info = pickle.load(open(pkl, "rb"))
         joint3d = np.load(pkl)
+        print(pkl, joint3d.shape)
         # joint3d = info["full_pose"]
         root_v = (joint3d[1:, 0, :] - joint3d[:-1, 0, :]) / DT  # root velocity (S-1, 3)
         root_a = (root_v[1:] - root_v[:-1]) / DT  # (S-2, 3) root accelerations
