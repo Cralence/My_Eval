@@ -11,7 +11,7 @@ def calc_physical_score(dir, fps):
     scores = []
     names = []
     accelerations = []
-    up_dir = 0  # y is up
+    up_dir = 1  # y is up
     flat_dirs = [i for i in range(3) if i != up_dir]
     DT = 1 / fps
 
@@ -32,7 +32,8 @@ def calc_physical_score(dir, fps):
         scaling = root_a.max()
         root_a /= scaling
 
-        foot_idx = [7, 10, 8, 11]
+        # foot_idx = [7, 10, 8, 11]
+        foot_idx = [6, 9, 8, 11]
         feet = joint3d[:, foot_idx]  # foot positions (S, 4, 3)
         foot_v = np.linalg.norm(
             feet[2:, :, flat_dirs] - feet[1:-1, :, flat_dirs], axis=-1
