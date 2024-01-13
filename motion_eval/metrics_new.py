@@ -182,7 +182,7 @@ def calc_and_save_feats(root):
 if __name__ == '__main__':
 
     #gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
-    pred_root = '/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Tempt_Repo/test_mu2mo_60hz_e30_gs4/joint'
+    pred_root = '/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
     # gt_root = '../tempt_1'
     # pred_root = '../tempt_2'
     print('Calculating and saving features')
