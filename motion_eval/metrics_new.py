@@ -3,6 +3,7 @@ import pickle
 from features.kinetic import extract_kinetic_features
 from features.manual_new import extract_manual_features
 from scipy import linalg
+import argparse
 
 # kinetic, manual
 import os
@@ -181,9 +182,17 @@ def calc_and_save_feats(root):
 
 
 if __name__ == '__main__':
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-p"
+        "--motion_path",
+        type=str,
+        default="motions/",
+        help="Where to load saved motions",
+    )
+    opt = parser.parse_args()
     gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
-    pred_root = '/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Tempt_Repo/test_mu2mo_60hz_e18_gs4/joint'
+    pred_root = opt.motion_path
     # gt_root = '../tempt_1'
     # pred_root = '../tempt_2'
     print('Calculating and saving features')
