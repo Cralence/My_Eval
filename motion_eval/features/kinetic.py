@@ -52,7 +52,7 @@ def extract_kinetic_features(positions):
 
 class KineticFeatures:
     def __init__(
-        self, positions, frame_time=1./20, up_vec="y", sliding_window=2
+        self, positions, frame_time=1./60, up_vec="y", sliding_window=2
     ):
         self.positions = positions
         self.frame_time = frame_time

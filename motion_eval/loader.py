@@ -127,7 +127,7 @@ class AISTDataset:
       return keypoints2d, bboxes, timestamps
 
   @classmethod
-  def load_frames(cls, video_path, frame_ids=None, fps=20):
+  def load_frames(cls, video_path, frame_ids=None, fps=60):
     """Load a single or multiple frames from a video."""
     if frame_ids is None:
       frame_ids = range(1e6)
