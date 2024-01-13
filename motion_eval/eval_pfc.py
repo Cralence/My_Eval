@@ -13,7 +13,7 @@ def calc_physical_score(dir, fps):
     accelerations = []
     up_dir = 1  # y is up
     flat_dirs = [i for i in range(3) if i != up_dir]
-    DT = 1 / fps
+    DT = 1 / 30
 
     it = glob.glob(os.path.join(dir, "*.npy"))
     if len(it) > 1000:
@@ -59,13 +59,13 @@ def parse_eval_opt():
     parser.add_argument(
         "--motion_path",
         type=str,
-        default="motions/",
+        default="../test_aist_joint",
         help="Where to load saved motions",
     )
     parser.add_argument(
         "--fps",
         type=int,
-        default=20,
+        default=60,
         choices=[20, 60],
         help="fps of the tested motion",
     )
