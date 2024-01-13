@@ -7,13 +7,13 @@ import numpy as np
 from tqdm import tqdm
 
 
-def calc_physical_score(dir):
+def calc_physical_score(dir, fps):
     scores = []
     names = []
     accelerations = []
     up_dir = 2  # z is up
     flat_dirs = [i for i in range(3) if i != up_dir]
-    DT = 1 / 30
+    DT = 1 / fps
 
     it = glob.glob(os.path.join(dir, "*.pkl"))
     if len(it) > 1000:
@@ -59,10 +59,17 @@ def parse_eval_opt():
         default="motions/",
         help="Where to load saved motions",
     )
+    parser.add_argument(
+        "--fps",
+        type=int,
+        default=20,
+        choices=[20, 60],
+        help="fps of the tested motion",
+    )
     opt = parser.parse_args()
     return opt
 
 
 if __name__ == "__main__":
     opt = parse_eval_opt()
-    calc_physical_score(opt.motion_path)
+    calc_physical_score(opt.motion_path, opt.fps)
