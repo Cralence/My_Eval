@@ -191,6 +191,8 @@ if __name__ == '__main__':
         help="Where to load saved motions",
     )
     opt = parser.parse_args()
+    print(opt)
+
     gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
     pred_root = opt.motion_path
     # gt_root = '../tempt_1'
