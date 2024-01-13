@@ -184,14 +184,13 @@ def calc_and_save_feats(root):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-p"
+        "-p",
         "--motion_path",
         type=str,
         default="motions/",
         help="Where to load saved motions",
     )
     opt = parser.parse_args()
-    print(opt)
 
     gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
     pred_root = opt.motion_path
