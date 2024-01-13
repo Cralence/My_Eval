@@ -33,7 +33,7 @@ def calc_physical_score(dir, fps):
         root_a /= scaling
 
         # foot_idx = [7, 10, 8, 11]
-        foot_idx = [2, 3, 6, 7]
+        foot_idx = [8, 11, 7, 10]
         feet = joint3d[:, foot_idx]  # foot positions (S, 4, 3)
         foot_v = np.linalg.norm(
             feet[2:, :, flat_dirs] - feet[1:-1, :, flat_dirs], axis=-1
