@@ -11,7 +11,7 @@ def calc_physical_score(dir, fps):
     scores = []
     names = []
     accelerations = []
-    up_dir = 1  # y is up
+    up_dir = 0  # y is up
     flat_dirs = [i for i in range(3) if i != up_dir]
     DT = 1 / fps
 
