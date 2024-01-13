@@ -12,13 +12,13 @@ def normalize(feat, feat2):
     
     return (feat - mean) / (std + 1e-10), (feat2 - mean) / (std + 1e-10)
 
-def quantized_metrics(predicted_pkl_root):
+def quantized_metrics(predicted_pkl_root, gt_pkl_root):
 
 
     pred_features_k = []
     pred_features_m = []
-    # gt_freatures_k = []
-    # gt_freatures_m = []
+    gt_freatures_k = []
+    gt_freatures_m = []
 
 
     # for pkl in os.listdir(predicted_pkl_root):
@@ -30,14 +30,14 @@ def quantized_metrics(predicted_pkl_root):
     pred_features_k = [np.load(os.path.join(predicted_pkl_root, 'kinetic_features', pkl)) for pkl in os.listdir(os.path.join(predicted_pkl_root, 'kinetic_features'))]
     pred_features_m = [np.load(os.path.join(predicted_pkl_root, 'manual_features_new', pkl)) for pkl in os.listdir(os.path.join(predicted_pkl_root, 'manual_features_new'))]
     
-    # gt_freatures_k = [np.load(os.path.join(gt_pkl_root, 'kinetic_features', pkl)) for pkl in os.listdir(os.path.join(gt_pkl_root, 'kinetic_features'))]
-    # gt_freatures_m = [np.load(os.path.join(gt_pkl_root, 'manual_features_new', pkl)) for pkl in os.listdir(os.path.join(gt_pkl_root, 'manual_features_new'))]
+    gt_freatures_k = [np.load(os.path.join(gt_pkl_root, 'kinetic_features', pkl)) for pkl in os.listdir(os.path.join(gt_pkl_root, 'kinetic_features'))]
+    gt_freatures_m = [np.load(os.path.join(gt_pkl_root, 'manual_features_new', pkl)) for pkl in os.listdir(os.path.join(gt_pkl_root, 'manual_features_new'))]
     
     
     pred_features_k = np.stack(pred_features_k)  # Nx72 p40
     pred_features_m = np.stack(pred_features_m) # Nx32
-    # gt_freatures_k = np.stack(gt_freatures_k) # N' x 72 N' >> N
-    # gt_freatures_m = np.stack(gt_freatures_m) #
+    gt_freatures_k = np.stack(gt_freatures_k) # N' x 72 N' >> N
+    gt_freatures_m = np.stack(gt_freatures_m) #
 
 #   T x 24 x 3 --> 72
 # T x72 -->32 
@@ -55,8 +55,8 @@ def quantized_metrics(predicted_pkl_root):
     # pred_features_k = normalize(pred_features_k)
     # pred_features_m = normalize(pred_features_m)     
     
-    # gt_freatures_k, pred_features_k = normalize(gt_freatures_k, pred_features_k)
-    # gt_freatures_m, pred_features_m = normalize(gt_freatures_m, pred_features_m)
+    gt_freatures_k, pred_features_k = normalize(gt_freatures_k, pred_features_k)
+    gt_freatures_m, pred_features_m = normalize(gt_freatures_m, pred_features_m)
     # # pred_features_k = normalize(pred_features_k)
     # pred_features_m = normalize(pred_features_m) 
     # pred_features_k = normalize(pred_features_k)
@@ -77,17 +77,16 @@ def quantized_metrics(predicted_pkl_root):
 
     print('Calculating metrics')
 
-    # fid_k = calc_fid(pred_features_k, gt_freatures_k)
-    # fid_m = calc_fid(pred_features_m, gt_freatures_m)
-    #
-    # div_k_gt = calculate_avg_distance(gt_freatures_k)
-    # div_m_gt = calculate_avg_distance(gt_freatures_m)
+    fid_k = calc_fid(pred_features_k, gt_freatures_k)
+    fid_m = calc_fid(pred_features_m, gt_freatures_m)
+
+    div_k_gt = calculate_avg_distance(gt_freatures_k)
+    div_m_gt = calculate_avg_distance(gt_freatures_m)
     div_k = calculate_avg_distance(pred_features_k)
     div_m = calculate_avg_distance(pred_features_m)
 
 
-    # metrics = {'fid_k': fid_k, 'fid_m': fid_m, 'div_k': div_k, 'div_m' : div_m, 'div_k_gt': div_k_gt, 'div_m_gt': div_m_gt}
-    metrics = {'div_k': div_k, 'div_m': div_m}
+    metrics = {'fid_k': fid_k, 'fid_m': fid_m, 'div_k': div_k, 'div_m' : div_m, 'div_k_gt': div_k_gt, 'div_m_gt': div_m_gt}
     return metrics
 
 
@@ -181,18 +180,18 @@ def calc_and_save_feats(root):
 
 if __name__ == '__main__':
 
-    #gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
+    gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
     pred_root = '/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
     # gt_root = '../tempt_1'
     # pred_root = '../tempt_2'
     print('Calculating and saving features')
-    #calc_and_save_feats(gt_root)
+    calc_and_save_feats(gt_root)
     calc_and_save_feats(pred_root)
 
     print('Calculating metrics')
-    #print(gt_root)
+    print(gt_root)
     print(pred_root)
-    print(quantized_metrics(pred_root))
+    print(quantized_metrics(pred_root, gt_root))
 
     # results without offsetting with mean
     # {'fid_k': 171.13009336399293, 'fid_m': 116.723685752069, 'div_k': 16.73747821964466, 'div_m': 9.502102176706153, 'div_k_gt': 9.26079813432322, 'div_m_gt': 7.342270033142343}
