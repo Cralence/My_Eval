@@ -11,16 +11,17 @@ def calc_physical_score(dir, fps):
     scores = []
     names = []
     accelerations = []
-    up_dir = 2  # z is up
+    up_dir = 1  # y is up
     flat_dirs = [i for i in range(3) if i != up_dir]
     DT = 1 / fps
 
-    it = glob.glob(os.path.join(dir, "*.pkl"))
+    it = glob.glob(os.path.join(dir, "*.npy"))
     if len(it) > 1000:
         it = random.sample(it, 1000)
     for pkl in tqdm(it):
-        info = pickle.load(open(pkl, "rb"))
-        joint3d = info["full_pose"]
+        # info = pickle.load(open(pkl, "rb"))
+        joint3d = np.load(pkl)
+        # joint3d = info["full_pose"]
         root_v = (joint3d[1:, 0, :] - joint3d[:-1, 0, :]) / DT  # root velocity (S-1, 3)
         root_a = (root_v[1:] - root_v[:-1]) / DT  # (S-2, 3) root accelerations
         # clamp the up-direction of root acceleration
