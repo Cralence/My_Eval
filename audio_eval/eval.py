@@ -119,6 +119,8 @@ class EvaluationHelper:
         keyset1 = set(data_dict1.keys())
         keyset2 = set(data_dict2.keys())
 
+        keyset1 = set([s.split('.')[0] for s in keyset1])
+        keyset2 = set([s.split('.')[0] for s in keyset2])
         intersect_keys = keyset1.intersection(keyset2)
         if (
             len(intersect_keys) / len(keyset1) > threshold

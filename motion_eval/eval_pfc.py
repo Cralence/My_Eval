@@ -13,7 +13,7 @@ def calc_physical_score(dir, fps):
     accelerations = []
     up_dir = 1  # y is up
     flat_dirs = [i for i in range(3) if i != up_dir]
-    DT = 1 / 30
+    DT = 1 / fps
 
     it = glob.glob(os.path.join(dir, "*.npy"))
     if len(it) > 1000:
