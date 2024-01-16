@@ -49,14 +49,11 @@ def calculate_kl(featuresdict_1, featuresdict_2, feat_layer_name, same_name=True
     EPS = 1e-6
     features_1 = featuresdict_1[feat_layer_name]
     features_2 = featuresdict_2[feat_layer_name]
-    print('features_1 ',features_1.shape) # the predicted (num*10, class_num)
     # # print('features_2 ',features_2.shape) # the true
     paths_1 = [os.path.basename(x) for x in featuresdict_1["file_path_"]]
     paths_2 = [os.path.basename(x) for x in featuresdict_2["file_path_"]]
-    print('paths_1 ',len(paths_1))  # its path
     # # print('paths_2 ',len(paths_2))
     path_to_feats_1 = {p: f for p, f in zip(paths_1, features_1)}
-    print(path_to_feats_1)
     path_to_feats_2 = {p: f for p, f in zip(paths_2, features_2)}
     # # dataset_name: caps
     # # in input1 (fakes) can have multiple samples per video, while input2 has only one real
@@ -64,7 +61,10 @@ def calculate_kl(featuresdict_1, featuresdict_2, feat_layer_name, same_name=True
     sharedkey_to_feats_1 = {p: path_to_feats_1[p] for p in paths_1}
     sharedkey_to_feats_2 = {p: path_to_feats_2[p] for p in paths_2}
     # sharedkey_to_feats_2 = {path_to_sharedkey(p, dataset_name, classes):path_to_feats_2[p] for p in paths_1}
-    print("???????????????", sharedkey_to_feats_2)
+
+    # remove the .wav and .mp3
+    sharedkey_to_feats_1 = {k.split('.')[0]: v for k, v in sharedkey_to_feats_1.items()}
+    sharedkey_to_feats_2 = {k.split('.')[0]: v for k, v in sharedkey_to_feats_2.items()}
 
     features_1 = []
     features_2 = []
@@ -83,6 +83,7 @@ def calculate_kl(featuresdict_1, featuresdict_2, feat_layer_name, same_name=True
 
     features_1 = torch.stack(features_1, dim=0)
     features_2 = torch.stack(features_2, dim=0)
+    print('!!!!!!!!!!!!!!!!!', features_1.shape, features_2.shape)
 
     kl_ref = torch.nn.functional.kl_div(
         (features_1.softmax(dim=1) + EPS).log(),
