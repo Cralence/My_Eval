@@ -20,7 +20,7 @@ from utilities import (
     Mixup,
     StatisticsContainer,
 )
-from models import (
+from clap import (
     Cnn14,
     Cnn14_no_specaug,
     Cnn14_no_dropout,

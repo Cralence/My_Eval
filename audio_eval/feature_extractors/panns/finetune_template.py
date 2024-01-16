@@ -20,7 +20,7 @@ import torch.optim as optim
 import torch.utils.data
 
 from utilities import get_filename
-from models import *
+from clap import *
 import config
 
 
