@@ -337,52 +337,52 @@ if __name__ == "__main__":
     # Ensure that number of audio files match number of captions
     import os
 
-    # Initialize paths
-    model_fp = "/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Eval/CLAP_weights_2022.pth"
-    config_path = "/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Eval/config.yml"
+# Initialize paths
+model_fp = "/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Eval/CLAP_weights_2022.pth"
+config_path = "/gpfs/u/scratch/LMCG/LMCGnngn/yanghan/My_Eval/config.yml"
 
-    clap = CLAPWrapper(model_fp, config_path, use_cuda=True)
+clap = CLAPWrapper(model_fp, config_path, use_cuda=True)
 
-    # Read the .txt file
-    # with open('/home/yutong/Dataset_2/text_prompt.txt', 'r') as file:
-    #     lines = file.readlines()
+# Read the .txt file
+# with open('/home/yutong/Dataset_2/text_prompt.txt', 'r') as file:
+#     lines = file.readlines()
 
-    # # Extract captions
-    # #column_as_list = [line.split(":")[1].strip() for line in lines]
-    # column_as_list = lines
-    # data = pd.read_csv('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/music/musiccaps-public.csv')
-    # column_as_list = data['caption'].tolist()
-    # audio_path = "/home/yutong/Dataset_2/test_result_on_musiccap/"
-    audio_path = "/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/test_mucap_gpt_new_e18_gs4/music"
-    audio_names = [filename for filename in os.listdir(audio_path) if filename.endswith(".wav") or filename.endswith(".mp3")]
+# # Extract captions
+# #column_as_list = [line.split(":")[1].strip() for line in lines]
+# column_as_list = lines
+# data = pd.read_csv('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/music/musiccaps-public.csv')
+# column_as_list = data['caption'].tolist()
+# audio_path = "/home/yutong/Dataset_2/test_result_on_musiccap/"
+audio_path = "/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/test_mucap_gpt_new_e18_gs4/music"
+audio_names = [filename for filename in os.listdir(audio_path) if filename.endswith(".wav") or filename.endswith(".mp3")]
 
-    data = pd.read_csv('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/music/musiccaps-public.csv', index_col=0)
+data = pd.read_csv('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/music/musiccaps-public.csv', index_col=0)
 
-    column_as_list = []
-    audio_paths = []
-    gt_names = list(data.index)
-    for pth in audio_names:
-        filename = pth.split('.')[0]
-        if filename in gt_names:
-            audio_paths.append(f'{audio_path}/{pth}')
-            column_as_list.append(data.loc[filename].caption)
+column_as_list = []
+audio_paths = []
+gt_names = list(data.index)
+for pth in audio_names:
+    filename = pth.split('.')[0]
+    if filename in gt_names:
+        audio_paths.append(f'{audio_path}/{pth}')
+        column_as_list.append(data.loc[filename].caption)
 
-    # Get all .wav files from the directory
-    # audio_paths = [f"{audio_path}/{filename}" for filename in os.listdir(audio_path) if filename.endswith(".wav") or filename.endswith(".mp3")]
+# Get all .wav files from the directory
+# audio_paths = [f"{audio_path}/{filename}" for filename in os.listdir(audio_path) if filename.endswith(".wav") or filename.endswith(".mp3")]
 
-    # Ensure that number of audio files match number of captions
+# Ensure that number of audio files match number of captions
 
-    min_length = min(len(audio_paths), len(column_as_list))
+min_length = min(len(audio_paths), len(column_as_list))
 
-    audio_paths = audio_paths[:min_length]
-    column_as_list = column_as_list[:min_length]
+audio_paths = audio_paths[:min_length]
+column_as_list = column_as_list[:min_length]
 
-    # Verify existence of each audio path
-    for path in audio_paths:
-        if not os.path.exists(path):
-            print(f"WARNING: The file {path} does not exist!")
+# Verify existence of each audio path
+for path in audio_paths:
+    if not os.path.exists(path):
+        print(f"WARNING: The file {path} does not exist!")
 
-    print(f"start calculating clap score, total {min_length} audios")
-    # batch_size 400
-    average_score = compute_average_score(clap, column_as_list, audio_paths, batch_size=150)
-    print(average_score)
+print(f"start calculating clap score, total {min_length} audios")
+# batch_size 400
+average_score = compute_average_score(clap, column_as_list, audio_paths, batch_size=150)
+print(average_score)
