@@ -72,7 +72,7 @@ def calculate_kl(featuresdict_1, featuresdict_2, feat_layer_name, same_name=True
     for sharedkey, feat_2 in sharedkey_to_feats_2.items():
         # print("feat_2",feat_2)
         if sharedkey not in sharedkey_to_feats_1.keys():
-            print("%s is not in the generation result" % sharedkey)
+            #print("%s is not in the generation result" % sharedkey)
             continue
         features_1.extend([sharedkey_to_feats_1[sharedkey]])
         # print("feature_step",len(features_1))
