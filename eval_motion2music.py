@@ -40,9 +40,11 @@ if __name__ == '__main__':
     syn_path = args.syn_path
     ref_music = sorted(glob.glob(ref_path + '/*'))
     syn_music = sorted(glob.glob(syn_path + '/*'))
+    assert len(ref_music) == len(syn_music)
     total_score_cover = 0
     total_score_hit = 0
     for i, c in enumerate(ref_music):
+        print(f'{i+1}/{len(ref_music)}, {ref_music[i]}, {syn_music[i]}')
         ref, _ = load(ref_music[i])
         syn, _ = load(syn_music[i])
         gt_beats = beat_detect(ref)
