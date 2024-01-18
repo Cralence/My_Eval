@@ -6,8 +6,10 @@ import json
 from bert_score import score
 from tqdm.auto import tqdm
 import argparse
+import nltk
 
-
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 parser = argparse.ArgumentParser()
 parser.add_argument("--ref", default='gt_caption.json')
 parser.add_argument("--pred", default='gen_caption.json')
