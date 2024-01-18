@@ -8,8 +8,8 @@ from tqdm.auto import tqdm
 import argparse
 import nltk
 
-nltk.download('wordnet')
-nltk.download('omw-1.4')
+nltk.download('wordnet', download_dir='/gpfs/u/home/LMCG/LMCGnngn/scratch/miniconda3x86/envs/unimumo_eval/lib/nltk_data/')
+nltk.download('omw-1.4', download_dir='/gpfs/u/home/LMCG/LMCGnngn/scratch/miniconda3x86/envs/unimumo_eval/lib/nltk_data/')
 parser = argparse.ArgumentParser()
 parser.add_argument("--ref", default='gt_caption.json')
 parser.add_argument("--pred", default='gen_caption.json')
