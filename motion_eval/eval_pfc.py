@@ -21,18 +21,16 @@ def calc_physical_score(dir, fps):
     for pkl in tqdm(it):
         # info = pickle.load(open(pkl, "rb"))
         joint3d = np.load(pkl)
-        print(pkl, joint3d.shape)
         # joint3d = info["full_pose"]
         root_v = (joint3d[1:, 0, :] - joint3d[:-1, 0, :]) / DT  # root velocity (S-1, 3)
         root_a = (root_v[1:] - root_v[:-1]) / DT  # (S-2, 3) root accelerations
+        print(f'{pkl}, joint: {joint3d.shape}, root_v: {root_v.shape}, root_a: {root_a.shape}', end=' ')
         # clamp the up-direction of root acceleration
         root_a[:, up_dir] = np.maximum(root_a[:, up_dir], 0)  # (S-2, 3)
         # l2 norm
         root_a = np.linalg.norm(root_a, axis=-1)  # (S-2,)
         scaling = root_a.max()
         root_a /= scaling
-
-        print(f'{pkl}, joint: {joint3d.shape}, root_v: {root_v.shape}, root_a: {root_a.shape}', end=' ')
 
         foot_idx = [7, 10, 8, 11]
         feet = joint3d[:, foot_idx]  # foot positions (S, 4, 3)
@@ -43,7 +41,7 @@ def calc_physical_score(dir, fps):
         foot_mins[:, 0] = np.minimum(foot_v[:, 0], foot_v[:, 1])
         foot_mins[:, 1] = np.minimum(foot_v[:, 2], foot_v[:, 3])
 
-        print(f'foot_mins: {foot_mins.shape}')
+        print(f'foot_v: {foot_v.shape}, foot_mins: {foot_mins.shape}')
 
         foot_loss = (
             foot_mins[:, 0] * foot_mins[:, 1] * root_a
