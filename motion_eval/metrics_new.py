@@ -192,7 +192,7 @@ if __name__ == '__main__':
     )
     opt = parser.parse_args()
 
-    gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
+    gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint_5s_feat'
     pred_root = opt.motion_path
     # gt_root = '../tempt_1'
     # pred_root = '../tempt_2'
