@@ -165,7 +165,7 @@ def calc_and_save_feats(root):
         if os.path.exists(os.path.join(root, 'kinetic_features', pkl)) and os.path.exists(os.path.join(root, 'manual_features_new', pkl)):
             continue
         #joint3d = np.load(os.path.join(root, pkl), allow_pickle=True).item()['pred_position'][:1200,:]
-        joint3d = np.load(os.path.join(root, pkl), allow_pickle=True)[:1200, :]
+        joint3d = np.load(os.path.join(root, pkl), allow_pickle=True)[:300, :]
         # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
         #roott = joint3d[:1, :3]  # the root Tx72 (Tx(24x3))
         roott = joint3d[:1, :1]  # (1, 1, 3)
