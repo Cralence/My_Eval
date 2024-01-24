@@ -165,7 +165,7 @@ def calc_and_save_feats(root):
         if os.path.exists(os.path.join(root, 'kinetic_features', pkl)) and os.path.exists(os.path.join(root, 'manual_features_new', pkl)):
             continue
         #joint3d = np.load(os.path.join(root, pkl), allow_pickle=True).item()['pred_position'][:1200,:]
-        joint3d = np.load(os.path.join(root, pkl), allow_pickle=True)[:300, :]
+        joint3d = np.load(os.path.join(root, pkl), allow_pickle=True)[:1200, :]
         # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
         #roott = joint3d[:1, :3]  # the root Tx72 (Tx(24x3))
         roott = joint3d[:1, :1]  # (1, 1, 3)
@@ -192,7 +192,7 @@ if __name__ == '__main__':
     )
     opt = parser.parse_args()
 
-    gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint_5s_feat'
+    gt_root = '/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/motion/test/test_aist_joint'
     pred_root = opt.motion_path
     # gt_root = '../tempt_1'
     # pred_root = '../tempt_2'
