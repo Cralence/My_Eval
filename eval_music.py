@@ -4,8 +4,8 @@ from audioldm_eval import EvaluationHelper
 # GPU acceleration is preferred
 device = torch.device(f"cuda:{0}")
 
-generation_result_path = " ../My_Project/exp_result/exp_13_2_e15_musiccap_gs4/music/"
-target_audio_path = "../musiccaps/musicap/"
+generation_result_path = " /gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Project/exp_result/exp_13_2_e15_musiccap_gs4/music/"
+target_audio_path = "/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/musiccaps/musicap/"
 
 # Initialize a helper instance
 evaluator = EvaluationHelper(16000, device)
