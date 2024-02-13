@@ -28,7 +28,7 @@ evaluator = EvaluationHelper(16000, device)
 
 # Perform evaluation, result will be print out and saved as json
 metrics = evaluator.main(
-    generation_result_path,
+    tempt_dir,
     target_audio_path,
     limit_num=None # If you only intend to evaluate X (int) pairs of data, set limit_num=X
 )
