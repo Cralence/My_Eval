@@ -14,6 +14,7 @@ tempt_dir = 'tempt_dir'
 target_files = os.listdir(target_audio_path)
 current_files = os.listdir(generation_result_path)
 target_files = [s.split('.')[0] for s in target_files]
+current_files = [s for s in current_files if s.endswith('.mp3') or s.endswith('.wav')]
 shared_files = [s for s in current_files if s.split('.')[0] in target_files]
 print(f'total file numbers: {len(shared_files)}')
 os.makedirs(tempt_dir, exist_ok=True)
