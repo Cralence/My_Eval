@@ -51,10 +51,12 @@ if __name__ == "__main__":
     evaluator = EvaluationHelper(16000, device)
 
     # Perform evaluation, result will be print out and saved as json
-    metrics = evaluator.main(
-        tempt_dir,
-        target_audio_path,
-        limit_num=None # If you only intend to evaluate X (int) pairs of data, set limit_num=X
-    )
-
-    os.system(f"rm -r {tempt_dir}")
+    try:
+        metrics = evaluator.main(
+            tempt_dir,
+            target_audio_path,
+            limit_num=None # If you only intend to evaluate X (int) pairs of data, set limit_num=X
+        )
+    except Exception as e:
+        print(e)
+        os.system(f"rm -r {tempt_dir}")
