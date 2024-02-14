@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     generation_result_path = args.generation_result_path
     target_audio_path = args.target_audio_path
-    tempt_dir = 'tempt_dir'
+    tempt_dir = 'tempt_dir/'
 
     # get same files
     target_files = os.listdir(target_audio_path)
