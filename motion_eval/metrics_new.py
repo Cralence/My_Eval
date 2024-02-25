@@ -164,21 +164,24 @@ def calc_and_save_feats(root):
             continue
         if os.path.exists(os.path.join(root, 'kinetic_features', pkl)) and os.path.exists(os.path.join(root, 'manual_features_new', pkl)):
             continue
-        #joint3d = np.load(os.path.join(root, pkl), allow_pickle=True).item()['pred_position'][:1200,:]
-        joint3d = np.load(os.path.join(root, pkl), allow_pickle=True)[:1200, :]
-        # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
-        #roott = joint3d[:1, :3]  # the root Tx72 (Tx(24x3))
-        roott = joint3d[:1, :1]  # (1, 1, 3)
-        # print(roott)
-        #joint3d = joint3d - np.tile(roott, (1, 22))  # Calculate relative offset with respect to root
-        joint3d = joint3d - roott
-        # print('==============after fix root ============')
-        # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
-        # print('==============bla============')
-        # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
-        # np_dance[:, :3] = root
-        np.save(os.path.join(root, 'kinetic_features', pkl), extract_kinetic_features(joint3d.reshape(-1, 22, 3)))
-        np.save(os.path.join(root, 'manual_features_new', pkl), extract_manual_features(joint3d.reshape(-1, 22, 3)))
+        try:
+            #joint3d = np.load(os.path.join(root, pkl), allow_pickle=True).item()['pred_position'][:1200,:]
+            joint3d = np.load(os.path.join(root, pkl), allow_pickle=True)[:1200, :]
+            # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
+            #roott = joint3d[:1, :3]  # the root Tx72 (Tx(24x3))
+            roott = joint3d[:1, :1]  # (1, 1, 3)
+            # print(roott)
+            #joint3d = joint3d - np.tile(roott, (1, 22))  # Calculate relative offset with respect to root
+            joint3d = joint3d - roott
+            # print('==============after fix root ============')
+            # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
+            # print('==============bla============')
+            # print(extract_manual_features(joint3d.reshape(-1, 24, 3)))
+            # np_dance[:, :3] = root
+            np.save(os.path.join(root, 'kinetic_features', pkl), extract_kinetic_features(joint3d.reshape(-1, 22, 3)))
+            np.save(os.path.join(root, 'manual_features_new', pkl), extract_manual_features(joint3d.reshape(-1, 22, 3)))
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':
