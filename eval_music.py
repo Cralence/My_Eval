@@ -33,7 +33,10 @@ if __name__ == "__main__":
 
     generation_result_path = args.generation_result_path
     target_audio_path = args.target_audio_path
-    tempt_dir = f'tempt_dir{random.randint(1, 999999)}/'
+
+    # remove the cached audio features
+    os.system(f"rm {os.path.join(target_audio_path, 'musicap_fad_feature_cache.npy')}")
+    os.system(f"rm {os.path.join(target_audio_path, 'musicapclassifier_logits_feature_cache.pkl')}")
 
     # get same files
     target_files = os.listdir(target_audio_path)
@@ -42,7 +45,11 @@ if __name__ == "__main__":
     current_files = [s for s in current_files if s.endswith('.mp3') or s.endswith('.wav')]
     shared_files = [s for s in current_files if s.split('.')[0] in target_files]
     print(f'total file numbers: {len(shared_files)}')
-    os.makedirs(tempt_dir, exist_ok=True)
+
+    tempt_dir = f'tempt_dir{random.randint(1, 999999)}/'
+    while os.path.exists(tempt_dir):
+        tempt_dir = f'tempt_dir{random.randint(1, 999999)}/'
+    os.makedirs(tempt_dir)
     for i in tqdm(range(len(shared_files)), desc='copying'):
         filename = shared_files[i]
         os.system(f"cp {os.path.join(generation_result_path, filename)} {os.path.join(tempt_dir, filename)}")
