@@ -35,8 +35,8 @@ if __name__ == "__main__":
     target_audio_path = args.target_audio_path
 
     # remove the cached audio features
-    os.system(f"rm {os.path.join(target_audio_path, 'musicap_fad_feature_cache.npy')}")
-    os.system(f"rm {os.path.join(target_audio_path, 'musicapclassifier_logits_feature_cache.pkl')}")
+    os.system(f"rm {os.path.join('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/musiccaps/', 'musicap_fad_feature_cache.npy')}")
+    os.system(f"rm {os.path.join('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/musiccaps/', 'musicapclassifier_logits_feature_cache.pkl')}")
 
     # get same files
     target_files = os.listdir(target_audio_path)
