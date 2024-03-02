@@ -67,4 +67,5 @@ if __name__ == "__main__":
         )
     except Exception as e:
         print(e)
-        os.system(f"rm -r {tempt_dir}")
+
+    os.system(f"rm -r {tempt_dir}")
