@@ -44,9 +44,9 @@ if __name__ == '__main__':
     total_score_cover = 0
     total_score_hit = 0
     for i, c in enumerate(ref_music):
-        print(f'{i+1}/{len(ref_music)}, {ref_music[i]}, {syn_music[i]}')
         ref, _ = load(ref_music[i])
         syn, _ = load(syn_music[i])
+        print(f'{i + 1}/{len(ref_music)}, {ref_music[i]}, {ref.shape}; {syn_music[i]}, {syn.shape}')
         gt_beats = beat_detect(ref)
         syn_beats = beat_detect(syn)
         score_cover, score_hit = beat_scores(gt_beats, syn_beats)
