@@ -367,7 +367,7 @@ if __name__ == "__main__":
     audio_path = opt.music_path
     audio_names = [filename for filename in os.listdir(audio_path) if filename.endswith(".wav") or filename.endswith(".mp3")]
 
-    data = pd.read_csv('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Tempt_Repo/data/music/musiccaps-public.csv', index_col=0)
+    data = pd.read_csv('/gpfs/u/home/LMCG/LMCGnngn/scratch/yanghan/My_Project/data/music/musiccaps-public.csv', index_col=0)
 
     column_as_list = []
     audio_paths = []
