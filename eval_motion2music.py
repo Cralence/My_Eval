@@ -48,6 +48,7 @@ if __name__ == '__main__':
         syn, _ = load(syn_music[i])
         print(f'{i + 1}/{len(ref_music)}, {ref_music[i]}, {ref.shape}; {syn_music[i]}, {syn.shape}')
         if ref.shape != syn.shape:
+            print('!!!! error! shape does not equal')
             continue
         gt_beats = beat_detect(ref)
         syn_beats = beat_detect(syn)
