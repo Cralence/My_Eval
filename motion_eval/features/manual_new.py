@@ -131,16 +131,17 @@ def extract_manual_features(positions):
         pose_features.append(
             f.f_plane("rankle", "neck", "lankle", "root", 0.5 * f.hl)
         )
-        pose_features.append(
-            f.f_angle("neck", "root", "zero", "y_unit", [70, 110])
-        )
-        pose_features.append(
-            f.f_nplane("zero", "minus_y_unit", "y_min", "rwrist", -1.2 * f.hl)
-        )
-        pose_features.append(
-            f.f_nplane("zero", "minus_y_unit", "y_min", "lwrist", -1.2 * f.hl)
-        )
-        print(pose_features[-3], pose_features[-2], pose_features[-1])
+        # pose_features.append(
+        #     f.f_angle("neck", "root", "zero", "y_unit", [70, 110])
+        # )
+        # pose_features.append(
+        #     f.f_nplane("zero", "minus_y_unit", "y_min", "rwrist", -1.2 * f.hl)
+        # )
+        # pose_features.append(
+        #     f.f_nplane("zero", "minus_y_unit", "y_min", "lwrist", -1.2 * f.hl)
+        # )
+        pose_features.extend([False, False, False])
+
         pose_features.append(f.f_fast("root", 2.3 * f.hl))
         features.append(pose_features)
         f.next_frame()
