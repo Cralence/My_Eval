@@ -39,10 +39,10 @@ if __name__ == "__main__":
     )
     opt = parser.parse_args()
 
-    model = laion_clap.CLAP_Module(enable_fusion=False)
+    model = laion_clap.CLAP_Module(enable_fusion=False, device='cpu')
     model.load_ckpt()  # download the default pretrained checkpoint.
-    device = torch.device('cuda:1')
-    model = model.to(device)
+    # device = torch.device('cuda:1')
+    # model = model.to(device)
 
     audio_path = opt.music_path
     audio_names = [filename for filename in os.listdir(audio_path) if filename.endswith(".wav") or filename.endswith(".mp3")]
