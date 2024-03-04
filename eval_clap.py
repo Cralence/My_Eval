@@ -1,5 +1,6 @@
 import laion_clap
 from os.path import join as pjoin
+import torch
 
 
 def compute_average_score(clap, music_captions, audio_paths, batch_size=32):
@@ -11,9 +12,13 @@ def compute_average_score(clap, music_captions, audio_paths, batch_size=32):
 
         audio_emb = clap.get_audio_embedding_from_filelist(x=batch_audio_files, use_tensor=True)
         text_emb = clap.get_text_embedding(batch_captions, use_tensor=True)
-        print(f'{audio_emb.shape}, {text_emb.shape}')
+
+        result = torch.sum(audio_emb * text_emb, dim=-1)
+        print(f'{count}/{len(music_captions)}: {audio_emb.shape}, {text_emb.shape}, {result.shape}')
+        scores.extend(list(result))
 
         count += batch_size
+    return sum(scores) / len(scores)
 
 
 
@@ -68,5 +73,5 @@ if __name__ == "__main__":
 
     print(f"start calculating clap score, total {min_length} audios")
     # batch_size 400
-    average_score = compute_average_score(model, column_as_list, audio_paths, batch_size=150)
+    average_score = compute_average_score(model, column_as_list, audio_paths, batch_size=32)
     print(average_score)
