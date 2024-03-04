@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
     model = laion_clap.CLAP_Module(enable_fusion=False)
     model.load_ckpt()  # download the default pretrained checkpoint.
+    model = model.cuda()
 
     audio_path = opt.music_path
     audio_names = [filename for filename in os.listdir(audio_path) if filename.endswith(".wav") or filename.endswith(".mp3")]
@@ -73,5 +74,5 @@ if __name__ == "__main__":
 
     print(f"start calculating clap score, total {min_length} audios")
     # batch_size 400
-    average_score = compute_average_score(model, column_as_list, audio_paths, batch_size=32)
+    average_score = compute_average_score(model, column_as_list, audio_paths, batch_size=16)
     print(average_score)
