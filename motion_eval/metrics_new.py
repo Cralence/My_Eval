@@ -54,7 +54,18 @@ def quantized_metrics(predicted_pkl_root, gt_pkl_root):
     # gt_freatures_k = normalize(gt_freatures_k)
     # gt_freatures_m = normalize(gt_freatures_m) 
     # pred_features_k = normalize(pred_features_k)
-    # pred_features_m = normalize(pred_features_m)     
+    # pred_features_m = normalize(pred_features_m)
+
+    # print(gt_freatures_k.mean(axis=0))
+    print(pred_features_k.mean(axis=0))
+    # print(gt_freatures_m.mean(axis=0))
+    print(pred_features_m.mean(axis=0))
+    # print(gt_freatures_k.std(axis=0))
+    print(pred_features_k.std(axis=0))
+    # print(gt_freatures_m.std(axis=0))
+    print(pred_features_m.std(axis=0))
+
+    print(f'After normalize:')
     
     gt_freatures_k, pred_features_k = normalize(gt_freatures_k, pred_features_k)
     gt_freatures_m, pred_features_m = normalize(gt_freatures_m, pred_features_m)
