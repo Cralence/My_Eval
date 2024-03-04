@@ -76,5 +76,5 @@ if __name__ == "__main__":
 
     print(f"start calculating clap score, total {min_length} audios")
     # batch_size 400
-    average_score = compute_average_score(model, column_as_list, audio_paths, batch_size=2)
+    average_score = compute_average_score(model, column_as_list, audio_paths, batch_size=32)
     print(average_score)
