@@ -140,6 +140,7 @@ def extract_manual_features(positions):
         pose_features.append(
             f.f_nplane("zero", "minus_y_unit", "y_min", "lwrist", -1.2 * f.hl)
         )
+        print(pose_features[-3], pose_features[-2], pose_features[-1])
         pose_features.append(f.f_fast("root", 2.3 * f.hl))
         features.append(pose_features)
         f.next_frame()
