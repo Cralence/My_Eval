@@ -6,18 +6,19 @@ import torch
 def compute_average_score(clap, music_captions, audio_paths, batch_size=32):
     scores = []
     count = 0
-    while count < len(music_captions):
-        batch_audio_files = audio_paths[count:count + batch_size]
-        batch_captions = music_captions[count: count + batch_size]
+    with torch.no_grad():
+        while count < len(music_captions):
+            batch_audio_files = audio_paths[count:count + batch_size]
+            batch_captions = music_captions[count: count + batch_size]
 
-        audio_emb = clap.get_audio_embedding_from_filelist(x=batch_audio_files, use_tensor=True)
-        text_emb = clap.get_text_embedding(batch_captions, use_tensor=True)
+            audio_emb = clap.get_audio_embedding_from_filelist(x=batch_audio_files, use_tensor=True)
+            text_emb = clap.get_text_embedding(batch_captions, use_tensor=True)
 
-        result = torch.sum(audio_emb * text_emb, dim=-1)
-        print(f'{count}/{len(music_captions)}: {audio_emb.shape}, {text_emb.shape}, {result.shape}')
-        scores.extend(list(result))
+            result = torch.sum(audio_emb * text_emb, dim=-1)
+            print(f'{count}/{len(music_captions)}: {audio_emb.shape}, {text_emb.shape}, {result.shape}')
+            scores.extend(list(result))
 
-        count += batch_size
+            count += batch_size
     return sum(scores) / len(scores)
 
 
