@@ -163,7 +163,7 @@ def calculate_avg_distance(feature_list, mean=None, std=None):
             curr_dist = np.linalg.norm(feature_list[i] - feature_list[j])
             if curr_dist > 100:
                 print(f'{feature_list.shape}, i: {i}, j: {j}, dist: {curr_dist}')
-            if i == 178 and j == 183:
+            if i == 173 and j == 182:
                 print(feature_list[i])
                 print(feature_list[j])
             dist_list.append(curr_dist)
