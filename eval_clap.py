@@ -13,6 +13,8 @@ def compute_average_score(clap, music_captions, audio_paths, batch_size=32):
 
             audio_emb = clap.get_audio_embedding_from_filelist(x=batch_audio_files, use_tensor=True)
             text_emb = clap.get_text_embedding(batch_captions, use_tensor=True)
+            audio_emb = audio_emb / torch.norm(audio_emb, dim=-1, keepdim=True)
+            text_emb = text_emb / torch.norm(text_emb, dim=-1, keepdim=True)
 
             result = torch.sum(audio_emb * text_emb, dim=-1)
             print(f'{count}/{len(music_captions)}: {audio_emb.shape}, {text_emb.shape}, {result.shape}')
