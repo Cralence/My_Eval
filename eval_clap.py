@@ -39,7 +39,7 @@ if __name__ == "__main__":
     )
     opt = parser.parse_args()
 
-    model = laion_clap.CLAP_Module(enable_fusion=False, device='cpu')
+    model = laion_clap.CLAP_Module(enable_fusion=False, device='cuda:2')
     model.load_ckpt()  # download the default pretrained checkpoint.
     # device = torch.device('cuda:1')
     # model = model.to(device)
